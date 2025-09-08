@@ -1,0 +1,81 @@
+html,
+body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden; /* 스크롤바 방지 (선택) */
+}
+
+/* 감싸는 배경 색상 지정 영역 */
+.stage {
+    inline-size: 100vw;
+    block-size: 100svh;
+    background: #000;
+    position: relative;
+    overflow: hidden; /* 원치 않는 스크롤 방지 */
+}
+
+/* 16:9 “이미지 프레임” 상자
+   - 화면에서 가로/세로 중 작은 쪽에 맞춰 최대 크기로(= contain)
+   - 위쪽 정렬(요청사항) + 가로는 가운데 정렬
+*/
+.frame {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    /* 화면에 맞는 최대 너비: min(가로폭, 세로폭*16/9) */
+    inline-size: min(100vw, calc(100svh * 16 / 9));
+    aspect-ratio: 16 / 9; /* 높이는 자동 계산 */
+    transform: translateX(-50%); /* 가로 중앙 정렬 */
+
+    /* 실제 배경 이미지 */
+    background: url('/responsive-image/bg-3840x2160.jpg') no-repeat center top;
+    background-size: 100% 100%; /* 프레임 안에서는 꽉 채움(왜곡 없음: 이미 프레임이 16:9라서) */
+
+    /* 오버레이 자식의 비례 스케일을 위해 컨테이너 선언 */
+    container-type: size; /* cqw/cqh 사용 가능하게 */
+}
+
+/* 프레임 위를 전부 덮는 오버레이 레이어 */
+.overlay {
+    position: absolute;
+    inset: 0; /* top/right/bottom/left: 0 */
+    /* 필요 시 클릭 막기(버튼 쓸 거면 제거) */
+    /* pointer-events: none;  */
+    color: #fff;
+}
+
+/* ===== 퍼센트 좌표(프레임 기준) + 컨테이너 쿼리 단위로 스케일 ===== */
+
+/* 좌상단에 3%/3% 여백으로 고정 */
+.label-top-left {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    margin: 0;
+
+    /* 글자 크기: 프레임 너비에 비례 (컨테이너 쿼리 단위) */
+    font-size: clamp(12px, 3cqw, 40px); /* 최소값/선호값/최대값 크기 제한 */
+    line-height: 1.2;
+    pointer-events: auto; /* 필요 시 클릭 가능 */
+}
+
+/* 우하단에 3%/3% 여백으로 고정 */
+.label-bottom-right {
+    position: absolute;
+    right: 3%;
+    bottom: 3%;
+    margin: 0;
+    font-size: clamp(12px, 2.2cqw, 32px);
+    line-height: 1.2;
+    pointer-events: auto;
+}
+
+/* (선택) 더 정밀한 배치가 필요하면 중앙 기준 배치도 가능
+.some-point {
+  position: absolute;
+  left: 72%;   // 디자인 기준 좌표(0~100)
+  top: 58%;
+  transform: translate(-50%, -50%); // 점의 중심을 좌표에 맞추기
+  width: 4cqw; height: 4cqw; border-radius: 50%; background:#fff;
+}
+*/
