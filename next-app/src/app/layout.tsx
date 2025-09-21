@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import localFont from 'next/font/local';
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
+const unifont = localFont({
+    src: '../../public/fonts/unifont-5_1.ttf',
+    display: 'swap',
+    weight: '45 920',
+    variable: '--font-unifont',
 });
 
 export const metadata: Metadata = {
@@ -24,7 +21,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='ko'>
-            <body className={`${geistSans.variable} ${geistMono.variable}`}>{children}</body>
+            <body className={`${unifont.className}`}>{children}</body>
         </html>
     );
 }
