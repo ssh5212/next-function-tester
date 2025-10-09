@@ -1,5 +1,5 @@
 import React from 'react';
-import './ResponsiveCanvas.css';
+// import './ResponsiveCanvas.css';
 
 type Props = {
     /** 배경 이미지 경로 (public/ 기준) */

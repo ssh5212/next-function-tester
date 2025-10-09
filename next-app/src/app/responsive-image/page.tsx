@@ -1,6 +1,6 @@
 // app/responsive-image/page.tsx
 import React from 'react';
-import './ResponsiveImage.css';
+// import './ResponsiveImage.css';
 import ResponsiveCanvas from '../components/ResponsiveCanvas';
 
 export default function ResponsiveImage() {
