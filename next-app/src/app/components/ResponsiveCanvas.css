@@ -1,0 +1,55 @@
+.stage {
+    inline-size: 100vw;
+    block-size: 100svh;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 16:9 “이미지 프레임” 상자
+   - 화면에서 가로/세로 중 작은 쪽에 맞춰 최대 크기로(= contain)
+   - 위쪽 정렬(요청사항) + 가로는 가운데 정렬
+*/
+.frame {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    /* 화면에 맞는 최대 너비: min(가로폭, 세로폭*16/9) */
+    inline-size: min(100vw, calc(100svh * 16 / 9));
+    aspect-ratio: 16 / 9; /* 높이는 자동 계산 */
+    transform: translateX(-50%); /* 가로 중앙 정렬 */
+    container-type: size;
+
+    /* ✅ 각 페이지에서 주입되는 CSS 변수 사용 */
+    background-image: var(--bg-image);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% 100%;
+}
+
+/* 프레임 위를 전부 덮는 오버레이 레이어 */
+.overlay {
+    position: absolute;
+    inset: 0; /* top/right/bottom/left: 0 */
+    /* 필요 시 클릭 막기(버튼 쓸 거면 제거) */
+    /* pointer-events: none;  */
+    color: #fff;
+}
+
+/* 예시 오버레이 유틸(원하시면 그대로 재사용) */
+.label-top-left {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    margin: 0;
+    font-size: clamp(12px, 3cqw, 40px);
+    line-height: 1.2;
+}
+.label-bottom-right {
+    position: absolute;
+    right: 3%;
+    bottom: 3%;
+    margin: 0;
+    font-size: clamp(12px, 2.2cqw, 32px);
+    line-height: 1.2;
+}
